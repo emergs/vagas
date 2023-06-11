@@ -1,17 +1,18 @@
-var data =  require("./fakeData");
+var data = require("./fakeData");
 
-module.exports = function(req, res){
-  
-    var name =  req.body.name;
-    var jov =  req.body.job;
-    
-    var newUser = {
-        name: name,
-        job: job,
-    }
+module.exports = function (req, res) {
+  const id = data.length + 1;
+  const name = req.body.name;
+  const job = req.body.job;
 
-    data.push(newUser)
-    
-    res.send(newUser);
+  const newUser = {
+    id: id,
+    name: name,
+    job: job,
+  }
+
+  data.push(newUser)
+
+  res.send(newUser);
 
 };
