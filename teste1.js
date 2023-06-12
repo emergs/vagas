@@ -1,24 +1,32 @@
-var data =  require("./fakeData");
+const data = require("./fakeData");
 
-const getUser = ( req, res, next ) => {
-    
-    var name =  req.query.name;
+const countViewsUser = [];
 
-    for(let i = 0; i < data.length;  i++) {
-        if(i.name == name) {
-            res.send(data[i]);
-        }
-    }
+const getUser = (req, res, next) => {
+  try {
+    const id = parseInt(req.params.id);
 
+    countViewsUser.push(id);
+
+    res.send(data.find(user => user.id === id));
+  }
+  catch (error) {
+    res.status(500).send("Erro interno do servidor");
+  }
 };
 
-const getUsers = ( req, res, next ) => {
-    
+const getUsers = (req, res, next) => {
+  try {
     res.send(data);
-    
+  }
+  catch (error) {
+    res.status(500).send("Erro interno do servidor");
+  }
+
 };
 
 module.exports = {
-    getUser,
-    getUsers
+  getUser,
+  getUsers,
+  countViewsUser
 };
