@@ -1,13 +1,25 @@
-var data =  require("./fakeData");
+const data = require("./fakeData");
 
-module.exports =  function(req, res) {
-  
-    var id =  req.query.id;
+module.exports = function (req, res) {
 
-    const reg = data.find(d => id == id);
-    reg.name = req.body.name;
-    reg.job = req.body.job;
+  const id = parseInt(req.params.id);
 
-    res.send(reg);
+  const userData = data.find(user => user.id === id);
+
+  if (!userData) {
+    res.status(404).send("Usuário não encontrado")
+  }
+
+  const indexUser = data.indexOf(userData);
+
+  const userEdited = {
+    id: id,
+    name: req.body.name,
+    job: req.body.job
+  }
+
+  data[indexUser] = userEdited;
+
+  res.status(200).send(userEdited)
 
 };
