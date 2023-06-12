@@ -1,12 +1,12 @@
-var express = require('express');
-var app = express();
+const express = require('express');
+const app = express();
 
-var teste1 = require("./teste1");
-var teste2 = require("./teste2");
-var teste3 = require("./teste3");
-var teste4 = require("./teste4");
-var teste5 = require("./teste5");
-
+const teste1 = require("./teste1");
+const teste2 = require("./teste2");
+const teste3 = require("./teste3");
+const teste4 = require("./teste4");
+const teste5 = require("./teste5");
+const permission = require("./permissions");
 
 app.set('view engine', 'jade');
 
@@ -26,10 +26,10 @@ app.get('/', function (req, res) {
 
 app.get("/user/:id", teste1.getUser);
 app.get("/users", teste1.getUsers);
-app.post("/users", teste2)
-app.delete("/users/:id", teste3)
-app.put("/users/:id", teste4)
-app.get("/users/access", teste5);
+app.post("/users", teste2);
+app.delete("/users/:id", permission, teste3);
+app.put("/users/:id", permission, teste4);
+app.get("/users/access/:id", teste5);
 
 
 const port = 3000;
